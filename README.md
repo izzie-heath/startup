@@ -1,4 +1,4 @@
-# Your startup name here
+# HABITat
 
 [My Notes](notes.md)
 
@@ -18,21 +18,21 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Proper use of Markdown - I learned Markdown and typed this deliverable in it.
+- [x] A concise and compelling elevator pitch - My elevator pitch explains why HABITat is helpful and introduces it's key functions.
+- [x] Description of key features - I listened the main features of my startup.
+- [x] Description of how you will use each technology - I listed how I will use HTML, CSS, React, Service, DB/Login, and WebSocket technologies in my startup.
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references. - I included a mockup for the dashboard page that I created using NinjaMock.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Tired of feeling forgetful, unmotivated, or disorganized? Then HABITat is for you! This gamified daily to-do list allows you to compete against your friends and see if you have the highest consistency. As your daily streaks grow, you'll earn badges, climb the leaderboard, and make progress in your life. HABITat: a place where good habits grow.
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](habitat-mockup.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Here is an image showing the main dashboard after a user logs in. I degined this using [NinjaMock](NinjaMock.com). 
 
 ```mermaid
 sequenceDiagram
@@ -43,20 +43,29 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Register/login to create an account.
+- Add and track daily habits (such as going to the gym, drinking water, etc.)
+- Earn streaks when you complete habits daily.
+- Earn badges and climb the leaderboard as your streak increases.
+- Compete with friends: see their streaks and leaderboard ranking.
+- Motivational quotes appear each day to keep users inspired. 
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Will be used to create the basic structure of 3 web pages:
+    - Login/register page
+    - Main dashboard with habits and condensed leaderboard
+    - Full leaderboard page
+- **CSS** - Will be used to style my pages. I plan to use a mostly green color palette to match the "HABITat" theme.
+- **React** - Will provide login, add/remove/check off habits, increasing/refreshing streaks, and routing between pages.
+- **Service** - I will be using third party services to generate inspirational quotes and the current date. My backend service will have endpoints for:
+    - Login/registration
+    - Retrieving a user's data
+    - Submitting completed habits
+- **DB/Login** - Will securely store user credentials, streak data, badges, and leadership info in a database.
+- **WebSocket** - As users complete habits, their streaks are updated in real time on other users' leaderboards.
 
 ## 🚀 AWS deliverable
 
