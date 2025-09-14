@@ -39,7 +39,9 @@
 
 ## AWS
 
+My server's elastic IP address: 54.87.181.99
 
+http://54.87.181.99/ &rarr; opens it on the web
 
 ## Caddy
 
