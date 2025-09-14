@@ -43,6 +43,13 @@ My server's elastic IP address: 54.87.181.99
 
 http://54.87.181.99/ &rarr; opens it on the web
 
+### How to SSH into my server
+In Git Bash, run:
+
+`ssh -i [key pair file] ubuntu@[ip address]`
+>key pair file is the .pem file downloaded locally
+
+
 ## Caddy
 
 No problems worked just like it said in the [instruction](https://github.com/webprogramming260/.github/blob/main/profile/webServers/https/https.md).
