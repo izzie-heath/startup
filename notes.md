@@ -41,7 +41,7 @@
 
 My server's elastic IP address: 54.87.181.99
 
-http://54.87.181.99/ &rarr; opens it on the web
+Domain: [myhabitat.click](https://myhabitat.click) &rarr; opens it on the web
 
 ### How to SSH into my server
 In Git Bash, run:
