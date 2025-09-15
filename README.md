@@ -71,7 +71,7 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://myhabitat.click/). - I leased a domain in Route53 and edited my Caddyfile so I can access my server through HTTPS.
 
 ## 🚀 HTML deliverable
 
