@@ -58,9 +58,21 @@ No problems worked just like it said in the [instruction](https://github.com/web
 
 ## HTML
 
-This was easy. I was careful to use the correct structural elements such as header, footer, main, nav, and form. The links between the three views work great using the `a` element.
+I'm pretty comfortable with the main structural components of HTML as I have used them before. However, I was less familiar with many of its input elements. Here's some notes to reference what they are:
 
-The part I didn't like was the duplication of the header and footer code. This is messy, but it will get cleaned up when I get to React.
+| Element    | Meaning                          | Example                                        |
+| ---------- | -------------------------------- | ---------------------------------------------- |
+| `form`     | Input container and submission   | `<form action="form.html" method="post">`      |
+| `fieldset` | Labeled input grouping           | `<fieldset> ... </fieldset>`                   |
+| `input`    | Multiple types of user input     | `<input type="" />`                            |
+| `select`   | Selection dropdown               | `<select><option>1</option></select>`          |
+| `optgroup` | Grouped selection dropdown       | `<optgroup><option>1</option></optgroup>`      |
+| `option`   | Selection option                 | `<option selected>option2</option>`            |
+| `textarea` | Multiline text input             | `<textarea></textarea>`                        |
+| `label`    | Individual input label           | `<label for="range">Range: </label>`           |
+| `output`   | Output of input                  | `<output for="range">0</output>`               |
+| `meter`    | Display value with a known range | `<meter min="0" max="100" value="50"></meter>` |
+
 
 ## CSS
 
