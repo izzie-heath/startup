@@ -77,15 +77,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created 5 HTML pages: `index.html`, `dashboard.html`, `leaderboard.html`, `login.html`, and `signup.html`.
 - [x] **Proper HTML element usage** - I correctly used several different HTML elements, such as `<nav>`, `<main>`, `<h1>`, `<h2>`, `<p>`, `<ul>`, `<li>`, and `<fieldset>`.
-- [x] **Links** - I linked all four of my pages together in a `<nav>` bar.
-- [x] **Text** - I included text content in the forms of headers and paragraphs across all four of my pages.
+- [x] **Links** - I linked all of my pages together in a `<nav>` bar.
+- [x] **Text** - I included text content in the forms of headers and paragraphs across all of my pages.
 - [x] **3rd party API placeholder** - I included a placeholder for the motivational quote API on my dashboard page.
 - [x] **Images** - I included several SVG icons on my homepage. Note: my logo image is currently a placeholder because my sister is helping me draw it (she is a digital artist).
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **Login placeholder** - I included a placeholder login form on the login.html page.
+ - [x] **DB data placeholder** - I included a placeholder leaderboard data table on the `leaderboard.html` page. This represents static data that would be stored in the database.
+ - [x] **WebSocket placeholder** - I included a placeholder area for real-time leaderboard updates on the `leaderboard.html` page. This represents the live data stream that would come from the server (WebSocket) and update the leaderboard when other users' scores or streaks change.
 
 ## 🚀 CSS deliverable
 
