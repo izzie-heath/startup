@@ -78,11 +78,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
+- [x] **Proper HTML element usage** - I correctly used several different HTML elements, such as `<nav>`, `<main>`, `<h1>`, `<h2>`, `<p>`, `<ul>`, `<li>`, and `<fieldset>`.
+- [x] **Links** - I linked all four of my pages together in a `<nav>` bar.
+- [x] **Text** - I included text content in the forms of headers and paragraphs across all four of my pages.
+- [x] **3rd party API placeholder** - I included a placeholder for the motivational quote API on my dashboard page.
+- [x] **Images** - I included several SVG icons on my homepage. Note: my logo image is currently a placeholder because my sister is helping me draw it (she is a digital artist).
 - [ ] **Login placeholder** - I did not complete this part of the deliverable.
 - [ ] **DB data placeholder** - I did not complete this part of the deliverable.
 - [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
