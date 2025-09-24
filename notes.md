@@ -60,6 +60,8 @@ No problems worked just like it said in the [instruction](https://github.com/web
 
 ## HTML
 
+I played around with the HTML of the Simon game. I was able to add this page to my website: [https://simon.myhabitat.click](https://simon.myhabitat.click).
+
 I'm pretty comfortable with the main structural components of HTML as I have used them before. However, I was less familiar with many of its input elements. Here's some notes to reference what they are:
 
 | Element    | Meaning                          | Example                                        |
