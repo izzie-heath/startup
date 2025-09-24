@@ -30,7 +30,7 @@ Tired of feeling forgetful, unmotivated, or disorganized? Then HABITat is for yo
 
 ### Design
 
-![Design image](habitat-mockup.png)
+![Design image](/img/placeholder.png)
 
 Here is an image showing the main dashboard after a user logs in. I designed this using [NinjaMock](NinjaMock.com). 
 
