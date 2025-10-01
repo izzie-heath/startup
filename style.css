@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+@font-face{
+    font-family: 'Visby';
+    src: url(fonts\VisbyMedium.otf);
+}
+
+@font-face {
+    font-family: 'Nexa';
+    src: url(fonts\Nexa-Heavy.ttf);
+}
