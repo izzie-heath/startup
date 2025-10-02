@@ -226,3 +226,100 @@ footer a {
     align-items: center;
 }
 
+/* Dashboard Section */
+.hello-section, .habits, .leaderboard-preview {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: transform 0.3s ease;
+    margin-bottom: 3rem;
+}
+
+.hello-section button, .habits button, .leaderboard-preview button {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin-top: 20px;
+    font-family: 'Visby';
+}
+
+.hello-section h2 {
+    font-family: 'Unique-Bold', sans-serif;
+    font-size: 3rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.hello-section h4 {
+    font-size: 1.2rem;
+    color: var(--hover-green);
+    margin-bottom: 1rem;
+}
+
+.hello-section p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    background-color: #f0fff3;
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: var(--secondary-green) 8px solid;
+}
+
+.habits h3, .leaderboard-preview h3 {
+    font-family: 'Visby', sans-serif;
+    font-size: 1.5rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.habits{
+    text-align: left;
+    display: flex;
+    
+} 
+
+.habit-list{
+    border-radius: 7px;
+    border: 2px solid var(--border-color);
+}
+
+.habits-column{
+    width: 60%;
+}
+
+.habit-list input, .streaks-column p {
+    margin-bottom: 20px;
+}
+
+.streaks-column {
+    margin-left: 50px;
+    
+}
+
+.leaderboard-preview{
+    text-align: left;
+}
+
+.leaderboard-preview table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-preview th{
+    border-bottom: 2px solid var(--border-color);
+}
+
+.leaderboard-preview td{
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px;
+}
