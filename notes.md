@@ -80,48 +80,25 @@ I'm pretty comfortable with the main structural components of HTML as I have use
 
 ## CSS
 
-This took a couple hours to get it how I wanted. It was important to make it responsive and Bootstrap helped with that. It looks great on all kinds of screen sizes.
+This was a lot of fun for me, and not too hard as I do a lot of CSS work at my job. However, it took me several hours because I am a bit of a perfectionist. Because of my experience, I don't need to take many notes over CSS, but I did find this really helpful Flexbox Cheat Sheet that I referenced quite a bit while coding:
 
-Bootstrap seems a bit like magic. It styles things nicely, but is very opinionated. You either do, or you do not. There doesn't seem to be much in between.
+![Flexbox Cheat Sheet](https://preview.redd.it/vd9dc7wfk9471.png?width=1080&crop=smart&auto=webp&s=a76f999c5919ea54062092686816e9647c4cd5af)
+>This was really helpful because I am a visual learner and there are a lot of properties to remember.
 
-I did like the navbar it made it super easy to build a responsive header.
+I also did some research on the display property. I've used `block`, `inline`, and `flex` before, but I didn't really understand the differences between them. Here are some notes I took:
 
-```html
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand">
-            <img src="logo.svg" width="30" height="30" class="d-inline-block align-top" alt="" />
-            Calmer
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" href="play.html">Play</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Logout</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-```
 
-I also used SVG to make the icon and logo for the app. This turned out to be a piece of cake.
+| Value         | Behavior                                                                 
+|---------------|--------------------------------------------------------------------------|
+| `block`     | Starts on a new line, fills container width                              |
+| `inline`    | Flows with text, only as wide as content                                 | 
+| `inline-block` | Flows inline *but* accepts width/height/margin like block             | 
+| `none`      | Element not rendered; removed from layout                                |
+| `flex`      | Container uses flexbox model, children become flex items                 |
+| `inline-flex` | Same as flex but container behaves inline                              |
+| `grid`      | Container uses grid model, children arranged in rows/cols                |
 
-```html
-<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100" height="100" fill="#0066aa" rx="10" ry="10" />
-  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="72" font-family="Arial" fill="white">C</text>
-</svg>
-```
+---
 
 ## React Part 1: Routing
 
