@@ -323,3 +323,33 @@ footer a {
     border-bottom: 1px solid var(--border-color);
     padding: 10px;
 }
+
+/* Leaderboard */
+.leaderboard-main h2 {
+    font-family: 'Unique-Bold', sans-serif;
+    font-size: 4rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.leaderboard-main{
+    text-align: left;
+}
+
+.leaderboard-main table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-main th{
+    border-bottom: px solid var(--border-color);
+}
+
+.leaderboard-main td{
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px;
+}
+
+/* Login/Signup */
