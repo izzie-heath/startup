@@ -16,7 +16,7 @@ export default function App() {
                     <div className="logo-group">
                         <img src="habitat-mascot.png" alt="HABITat Logo" className="logo-img" />
                         <div className="logo-group-text">
-                            <a href="./index.html"><h1>HABITat</h1></a>
+                            <NavLink className='nav-link' to='home'><h1>HABITat</h1></NavLink>
                             <p id="slogan">a place for good habits to grow</p>
                         </div> 
                     </div>
@@ -31,6 +31,7 @@ export default function App() {
 
             <Routes>
                 <Route path="//" element={<Home />} exact/>
+                <Route path="/home" element={<Home />} exact/>
                 <Route path="/dashboard" element={<Dashboard />} exact/>
                 <Route path="/leaderboard" element={<Leaderboard />} exact/>
                 <Route path="/login" element={<Login />} exact/>

@@ -1,17 +1,18 @@
 import React from 'react';
 import './home.css';
+import { NavLink } from 'react-router-dom';
 
 export function Home() {
   return (
     <main>
         <div className="hero">
             <div className="logo-hero">
-                <img src="img/habitat-mascot.png" alt="HABITat Logo" style={{ width: '150px', height: 'auto' }} />
+                <img src="habitat-mascot.png" alt="HABITat Logo" style={{ width: '150px', height: 'auto' }} />
             </div>
             <div className="text-hero">
                 <h2>Welcome to HABITat</h2>
                 <p>your journey to building better habits starts here</p>
-                <a href="/dashboard.html">Get Started</a>
+                <NavLink className='nav-link' to='../dashboard'>Get Started</NavLink>
             </div>
         </div>
 
