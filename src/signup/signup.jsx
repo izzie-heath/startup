@@ -1,5 +1,6 @@
 import React from 'react';
 import '../login/login.css';
+import { NavLink } from 'react-router-dom';
 
 export function Signup() {
   return (
@@ -15,7 +16,7 @@ export function Signup() {
             
             <button type="button">Signup</button>
             
-            <p>Already have an account? <a href="/login.html">Login Here</a></p>
+            <p>Already have an account? <NavLink className='nav-link' to='../login'>Login here</NavLink></p>
         </div>
     </main>
   );

@@ -34,6 +34,8 @@ export default function App() {
                 <Route path="/dashboard" element={<Dashboard />} exact/>
                 <Route path="/leaderboard" element={<Leaderboard />} exact/>
                 <Route path="/login" element={<Login />} exact/>
+                <Route path="/signup" element={<Signup />} exact/>
+                <Route path="*" element={<NotFound />} />
             </Routes>
 
             <footer>
