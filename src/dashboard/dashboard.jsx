@@ -1,5 +1,6 @@
 import React from 'react';
 import './dashboard.css';
+import { NavLink } from 'react-router-dom';
 
 export function Dashboard() {
   return (
@@ -61,7 +62,7 @@ export function Dashboard() {
                     <td>8</td>
                 </tr>
             </table>
-            <a href="/leaderboard.html"><button>View Full Leaderboard</button></a>
+            <NavLink className='nav-link' to='../leaderboard'><button>View Full Leaderboard</button></NavLink>
         </div>
     </main>
   );
