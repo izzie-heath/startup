@@ -34,7 +34,7 @@
     text-decoration: none;
 }
 
-body {
+.body {
     font-family: 'Visby', sans-serif;
     color: var(--text-dark);
     background-color: var(--background-light);
