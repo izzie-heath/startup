@@ -10,9 +10,8 @@
 
 @font-face {
     font-family: 'Unique-Bold';
-    src: url(fonts/OpenType-TT/Unique-Bold.ttf);
+    src: url(fonts/Unique-Bold.ttf);
 }
-
 
 /*HABITat Theme*/
 :root {
@@ -27,7 +26,6 @@
     --hover-green: #5d8f6c;
     --shadow-color: rgba(74, 124, 89, 0.2);
 }
-
 
 * {
     margin: 0;
@@ -49,15 +47,6 @@ header {
     box-shadow: 0 2px 10px var(--shadow-color);
     top: 0;
     z-index: 100;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
 }
 
 .logo-group {
@@ -109,88 +98,20 @@ h1 {
     background-color: var(--hover-green);
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
     width: 100%;
-}
-
-.hero {
-    text-align: center;
-    padding: 4rem 0;
-    background: radial-gradient(var(--light-green) 0%, var(--background-light) 100%);
-    border-radius: 15px;
-    margin-bottom: 3rem;
-}
-
-.hero h2 {
-    font-family: 'Unique-Bold', sans-serif;
-    font-size: 4rem;
-    color: var(--primary-green);
-    margin-bottom: 1rem;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    color: var(--text-dark);
-    margin-bottom: 2rem;
-}
-
-.hero a {
-    background-color: var(--primary-green);
-    color: var(--text-light);
-    padding: 1rem 2rem;
-    text-decoration: none;
-    border-radius: 40px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    display: inline-block;
-}
-
-.hero a:hover {
-    background-color: var(--hover-green);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--shadow-color);
-}
-
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-}
-
-.feature {
-    text-align: center;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: transform 0.3s ease;
-}
-
-.feature:hover {
-    transform: translateY(-5px);
-}
-
-.feature h3 {
-    font-family: 'Unique-Bold', sans-serif;
-    color: var(--primary-green);
-    margin-bottom: 1rem;
-    font-size: 3rem;
-    letter-spacing: 1.1;
-}
-
-.feature p {
-    color: var(--text-dark);
-}
-
-.feature svg {
-    color: var(--secondary-green);
-    margin-top: 1rem;
 }
 
 footer {
@@ -225,211 +146,4 @@ footer a {
     color: var(--text-light);
     display: flex;
     align-items: center;
-}
-
-/* Dashboard Section */
-.hello-section, .habits, .leaderboard-preview {
-    text-align: center;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: transform 0.3s ease;
-    margin-bottom: 3rem;
-}
-
-.hello-section button, .habits button, .leaderboard-preview button {
-    background-color: var(--primary-green);
-    color: var(--text-light);
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
-    margin-top: 20px;
-    font-family: 'Visby';
-}
-
-.hello-section h2 {
-    font-family: 'Unique-Bold', sans-serif;
-    font-size: 3rem;
-    color: var(--primary-green);
-    margin-bottom: 1rem;
-}
-
-.hello-section h4 {
-    font-size: 1.2rem;
-    color: var(--hover-green);
-    margin-bottom: 1rem;
-}
-
-.hello-section p {
-    font-size: 1rem;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-    background-color: #f0fff3;
-    padding: 1rem;
-    border-radius: 5px;
-    border-left: var(--secondary-green) 8px solid;
-}
-
-.habits h3, .leaderboard-preview h3 {
-    font-family: 'Visby', sans-serif;
-    font-size: 1.5rem;
-    color: var(--primary-green);
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.habits{
-    text-align: left;
-    display: flex;
-    
-} 
-
-.habit-list{
-    border-radius: 7px;
-    border: 2px solid var(--border-color);
-}
-
-.habits-column{
-    width: 60%;
-}
-
-.habit-list input, .streaks-column p {
-    margin-bottom: 20px;
-}
-
-.streaks-column {
-    margin-left: 50px;
-    
-}
-
-.leaderboard-preview{
-    text-align: left;
-}
-
-.leaderboard-preview table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.leaderboard-preview th{
-    border-bottom: 2px solid var(--border-color);
-}
-
-.leaderboard-preview td{
-    border-bottom: 1px solid var(--border-color);
-    padding: 10px;
-}
-
-/* Leaderboard */
-.leaderboard-main h2 {
-    font-family: 'Unique-Bold', sans-serif;
-    font-size: 4rem;
-    color: var(--primary-green);
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.leaderboard-main{
-    text-align: left;
-}
-
-.leaderboard-main table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.leaderboard-main th{
-    border-bottom: px solid var(--border-color);
-}
-
-.leaderboard-main td{
-    border-bottom: 1px solid var(--border-color);
-    padding: 15px;
-}
-
-/* Login/Signup */
-.login-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    padding: 2rem;
-}
-
-.login-form {
-    max-width: 450px;
-    width: 100%;
-    padding: 3rem;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px var(--shadow-color);
-    text-align: center;
-}
-
-.login-form h2 {
-    font-family: 'Unique-Bold', sans-serif;
-    font-size: 4rem;
-    color: var(--primary-green);
-    margin-bottom: 2rem;
-}
-
-.login-form label {
-    display: flex;
-    text-align: left;
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-    font-weight: 600;
-}
-
-.login-form input {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    transition: border-color 0.3s ease;
-    font-family: 'Visby', sans-serif;
-}
-
-.login-form button {
-    width: 100%;
-    background-color: var(--primary-green);
-    color: var(--text-light);
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    font-family: 'Visby', sans-serif;
-    transition: all 0.3s ease;
-    margin-bottom: 1.5rem;
-}
-
-.login-form button:hover {
-    background-color: var(--hover-green);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px var(--shadow-color);
-}
-
-.login-form p {
-    color: var(--text-dark);
-    margin: 0;
-}
-
-.login-form a {
-    color: var(--primary-green);
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-.login-form a:hover {
-    color: var(--hover-green);
 }
