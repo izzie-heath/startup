@@ -1,0 +1,76 @@
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+    background: radial-gradient(var(--light-green) 0%, var(--background-light) 100%);
+    border-radius: 15px;
+    margin-bottom: 3rem;
+}
+
+.hero h2 {
+    font-family: 'Unique-Bold', sans-serif;
+    font-size: 4rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+}
+
+.hero a {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    display: inline-block;
+}
+
+.hero a:hover {
+    background-color: var(--hover-green);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.feature {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature h3 {
+    font-family: 'Unique-Bold', sans-serif;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    letter-spacing: 1.1;
+}
+
+.feature p {
+    color: var(--text-dark);
+}
+
+.feature svg {
+    color: var(--secondary-green);
+    margin-top: 1rem;
+}
