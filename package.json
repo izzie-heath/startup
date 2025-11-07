@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "esbuild": "^0.25.10",
+    "express": "^5.1.0",
     "fdir": "^6.5.0",
     "nanoid": "^3.3.11",
     "picocolors": "^1.1.1",

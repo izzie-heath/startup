@@ -88,11 +88,11 @@ This was a lot of fun for me, and not too hard as I do a lot of CSS work at my j
 I also did some research on the display property. I've used `block`, `inline`, and `flex` before, but I didn't really understand the differences between them. Here are some notes I took:
 
 
-| Value         | Behavior                                                                 
+| Value         | Behavior
 |---------------|--------------------------------------------------------------------------|
 | `block`     | Starts on a new line, fills container width                              |
-| `inline`    | Flows with text, only as wide as content                                 | 
-| `inline-block` | Flows inline *but* accepts width/height/margin like block             | 
+| `inline`    | Flows with text, only as wide as content                                 |
+| `inline-block` | Flows inline *but* accepts width/height/margin like block             |
 | `none`      | Element not rendered; removed from layout                                |
 | `flex`      | Container uses flexbox model, children become flex items                 |
 | `inline-flex` | Same as flex but container behaves inline                              |
@@ -129,3 +129,88 @@ Handling the toggling of the checkboxes was particularly interesting.
   ))}
 </div>
 ```
+
+## Startup Service
+
+### TCP/IP Layers
+
+| Layer       | Example         | Purpose                               |
+| ----------- | --------------- | ------------------------------------- |
+| Application | HTTPS           | Functionality like web browsing       |
+| Transport   | TCP             | Moving connection information packets |
+| Internet    | IP              | Establishing connections              |
+| Link        | Fiber, hardware | Physical connections                  |
+
+### Web Servers & HTTP
+
+Web servers (like Apache, Nginx, or Express) listen for HTTP requests and respond with data or HTML pages.
+HTTP (Hypertext Transfer Protocol) defines how the browser and server talk — using methods like `GET`, `POST`, `PATCH`, and `DELETE`.
+Express handles this for us with simple routes like:
+
+```js
+app.get('/api/habits', ...)
+app.post('/api/habits', ...)
+```
+
+### URLs and Ports
+
+A URL (Uniform Resource Locator) tells the browser where to send requests.
+Example: https://startup.myhabitat.click/api/habits → the domain is my AWS server, and /api/habits is the path.
+Ports act like apartment numbers on the same computer.
+ - 80 = HTTP
+ - 443 = HTTPS
+ - 4000 = my backend service
+
+### Modules and Fetch
+
+Modules let us split code into reusable files and import/export what we need.
+fetch() connects the frontend to the backend. Example:
+
+`fetch('/api/habits').then(res => res.json());`
+
+
+Vite’s proxy forwards these requests to port 4000 while developing.
+
+### Node Web Service & Express
+
+Node.js runs JavaScript on the server.
+Express builds on it, letting us define routes, send JSON, and serve static files easily.
+Middleware like `express.json()` parses JSON request bodies, and `express.static('public')` hosts the frontend in production.
+
+### SOP and CORS
+
+Browsers block requests to different origins (like port 5173 → 4000) because of the Same Origin Policy.
+Vite’s proxy solves this by forwarding `/api` calls locally, avoiding CORS issues.
+
+### Service Design
+
+Design endpoints using REST conventions:
+- GET /api/habits – list habits
+- POST /api/habits – create
+- PATCH /api/habits/:id – update
+- DELETE /api/habits/:id – remove
+
+Always return clean JSON and proper status codes.
+
+### Authorization, Login, and Cookies
+
+Used `express`, `cookie-parser`, `bcryptjs`, and `uuid` to support:
+
+- POST `/api/auth/register` – create account (stores hashed password)
+
+- POST `/api/auth/login` – verify and set session cookie
+
+- POST `/api/auth/logout` – clear cookie
+
+Cookies keep users logged in, and middleware checks them for protected routes.
+
+### Troubleshooting 502
+
+If deployment returns a 502, it usually means one of these issues:
+
+- I installed dependencies in the wrong package.json
+
+- My backend isn’t on port 4000
+
+- `deployService.sh` couldn’t find `/service`
+
