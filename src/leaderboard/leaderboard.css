@@ -17,7 +17,7 @@
 }
 
 .leaderboard-main th{
-    border-bottom: px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .leaderboard-main td{

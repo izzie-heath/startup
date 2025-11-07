@@ -2,6 +2,10 @@ import React from 'react';
 import './leaderboard.css';
 
 export function Leaderboard() {
+  //this is a placeholder for the leaderboard logic until I get the server set up, it takes your username and highest streak from localStorage
+  const habits = JSON.parse(localStorage.getItem('habits')) || [];
+  const streak = habits.filter(habit => habit.streak).reduce((max, habit) => Math.max(max, habit.streak), 0);
+
   return (
     <main className="leaderboard-main">
         <h2>Leaderboard</h2>
@@ -13,8 +17,8 @@ export function Leaderboard() {
             </tr>
             <tr>
                 <td>1</td>
-                <td>cosmothecougar</td>
-                <td>16</td>
+                <td>{localStorage.getItem('username')}</td>
+                <td>{streak}</td>
             </tr>
             <tr>
                 <td>2</td>

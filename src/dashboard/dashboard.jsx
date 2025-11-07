@@ -36,6 +36,16 @@ export function Dashboard() {
     }, [habits]);
 
 
+    useEffect(() => {
+        const today = new Date().toDateString();
+        const lastReset = localStorage.getItem('lastReset');
+        if (lastReset !== today) {
+            setHabits(prev => prev.map(h => ({ ...h, done: false })));
+            localStorage.setItem('lastReset', today);
+        }
+    }, []);
+
+
     //functions for handling habits
     function toggleHabit(id) {
         const today = new Date().toDateString();
@@ -43,17 +53,15 @@ export function Dashboard() {
             if (habit.id !== id)
                 return habit;
             if (!habit.done){
-                let newStreak = habit.streak;
-                if (habit.lastCompleted === today){
-                    return habit;
-                } else if (habit.lastCompleted === getYesterday()) {
+                let newStreak = habit.streak ?? 0;
+                if (habit.lastCompleted === getYesterday()){
                     newStreak += 1;
                 } else {
                     newStreak = 1;
                 }
                 return { ...habit, done: true, streak: newStreak, lastCompleted: today }
             } else {
-                return { ...habit, done: false };
+                return { ...habit, done: false, lastCompleted: null };
             }
         }));
     }
@@ -67,7 +75,13 @@ export function Dashboard() {
     function addHabit() {
         const text = prompt('Enter a new habit:');
             if(!text) return;
-            setHabits([...habits, { id: Date.now(), text, done: false }]);
+            setHabits([...habits, {
+                id: Date.now(),
+                text,
+                done: false,
+                streak: 0,
+                lastCompleted: null
+            }]);
     }
 
     function deleteHabit(id) {
