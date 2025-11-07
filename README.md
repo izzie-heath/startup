@@ -32,7 +32,7 @@ Tired of feeling forgetful, unmotivated, or disorganized? Then HABITat is for yo
 
 ![Design image](/img/habitat-mockup.png)
 
-Here is an image showing the main dashboard after a user logs in. I designed this using [NinjaMock](NinjaMock.com). 
+Here is an image showing the main dashboard after a user logs in. I designed this using [NinjaMock](NinjaMock.com).
 
 ```mermaid
 sequenceDiagram
@@ -48,7 +48,7 @@ sequenceDiagram
 - Earn streaks when you complete habits daily.
 - Earn badges and climb the leaderboard as your streak increases.
 - Compete with friends: see their streaks and leaderboard ranking.
-- Motivational quotes appear each day to keep users inspired. 
+- Motivational quotes appear each day to keep users inspired.
 
 ### Technologies
 
@@ -110,8 +110,10 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I implemented the main functionality of my application, including the ability to add/delete habits, check them off, and see streaks. Some parts are mocked out (such as the API calls for the motivational quotes and the backend service calls).
+- [x] **Hooks** - I did not complete this part of the deliverable.
+    - I used `useState` to manage the state of the habit list and the random quote.
+    - I used `useEffect` to load habit data from local storage, to automatically reset habits daily, and to choose a new random quote when the dashboard loads.
 
 ## 🚀 Service deliverable
 
