@@ -53,7 +53,15 @@ export function Dashboard() {
             setHabits([...habits, { id: Date.now(), text, done: false }]);
     }
 
+    function deleteHabit(id) {
+        setHabits(habits.filter(habit => habit.id !== id));
+    }
 
+    function confirmDelete(id) {
+        if(window.confirm('Are you sure you want to delete this habit?  Streak data will be lost.')) {
+            deleteHabit(id);
+        }
+    }
 
   return (
     <main>
@@ -77,10 +85,13 @@ export function Dashboard() {
                             <label htmlFor={`habit-${habit.id}`}>
                                 {habit.text}
                             </label>
+                            <button className="delete-button" onClick={() => confirmDelete(habit.id)}>
+                                <img src="public/delete-icon.png" alt="X icon" />
+                            </button>
                         </div>
                     ))}
                 </fieldset>
-                <button type="button" onClick={addHabit}>Add Habit</button>
+                <button className="add-button" type="button" onClick={addHabit}>Add Habit</button>
             </div>
 
             <div className="streaks-column">

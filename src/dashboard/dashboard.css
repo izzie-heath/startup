@@ -8,7 +8,7 @@
     margin-bottom: 3rem;
 }
 
-.hello-section button, .habits button, .leaderboard-preview button {
+.hello-section button, .add-button, .leaderboard-preview button {
     background-color: var(--primary-green);
     color: var(--text-light);
     border: none;
@@ -56,8 +56,7 @@
 .habits{
     text-align: left;
     display: flex;
-    
-} 
+}
 
 .habit-list{
     border-radius: 7px;
@@ -74,7 +73,7 @@
 
 .streaks-column {
     margin-left: 50px;
-    
+
 }
 
 .leaderboard-preview{
@@ -93,4 +92,16 @@
 .leaderboard-preview td{
     border-bottom: 1px solid var(--border-color);
     padding: 10px;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.delete-button img {
+    width: 20px;
+    height: 20px;
 }
