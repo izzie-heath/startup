@@ -64,3 +64,42 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
+//gets all habits for user
+apiRouter.get('/habits', verifyAuth, (_req, res) => {
+    res.send(habits);
+});
+
+//adds a new habit for user
+apiRouter.post('/habit', verifyAuth, (req, res) => {
+    const newHabit = {id: uuid.v4(), ...req.body};
+    habits.push(newHabit);
+    res.status(201).send(newHabit);
+});
+
+//updates a habit
+apiRouter.patch('/habit/:id', verifyAuth, (req, res) => {
+    const idx = habits.findIndex((h) => h.id === req.params.id);
+    if (idx !== -1) {
+        habits[idx] = { ...habits[idx], ...req.body };
+        res.send(habits[idx]);
+    } else {
+        res.status(404).send({ msg: 'Habit not found' });
+    }
+});
+
+//deletes a habit
+apiRouter.delete('/habit/:id', verifyAuth, (req, res) => {
+    habits = habits.filter((h) => h.id !== req.params.id);
+    res.status(204).end();
+});
+
+//error handler
+app.use(function (err, req, res, next) {
+    res.status(500).send({ type: err.name, message: err.message });
+});
+
+//return the application's default page if the path is unknown
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+});
+
