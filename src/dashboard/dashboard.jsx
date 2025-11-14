@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 export function Dashboard() {
-  const username = localStorage.getItem('username') || 'Guest';
+    const username = localStorage.getItem('username') || 'Guest';
 
-  const [habits, setHabits] = useState(() => {
+    const [habits, setHabits] = useState(() => {
         const saved = localStorage.getItem('habits');
         return saved ? JSON.parse(saved) : [];
     });
@@ -18,18 +18,24 @@ export function Dashboard() {
     const monthName = monthNames[currentDate.getMonth()];
     const date = `${monthName} ${day}, ${year}`;
 
-    //this is just simulating the API call for now by picking a random quote from an array
+    //API call to get a random inspirational quote
     const [quote, setQuote] = useState('');
-    useEffect(() => {
-        const quotes = [
-            'I can do hard things.',
-            'Every day is a fresh start.',
-            'Small steps lead to big changes.',
-            'Consistency is key to success.',
-        ];
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-        setQuote(randomQuote);
-    }, []);
+    const [quoteAuthor, setQuoteAuthor] = useState('');
+
+useEffect(() => {
+    async function fetchQuote() {
+        fetch('https://api.realinspire.live/v1/quotes/random')
+        .then(response => response.json())
+        .then(data => {
+            setQuote(data[0].content);
+            setQuoteAuthor(data[0].author);
+            console.log(`${data[0].content} — ${data[0].author}`);
+        })
+        .catch();
+    }
+    fetchQuote();
+}, []);
+
 
     useEffect(() => {
         localStorage.setItem('habits', JSON.stringify(habits));
@@ -99,7 +105,7 @@ export function Dashboard() {
         <div className="hello-section">
             <h2>Hello, {username}!</h2>
             <h4>{date}</h4>
-            <p>{quote}</p>
+            <p>{quote} — {quoteAuthor}</p>
         </div>
         <div className="habits">
             <div className="habits-column">
