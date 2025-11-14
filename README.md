@@ -119,12 +119,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - I set up Express on my Node.js server.
+- [x] **Static middleware for frontend** - I set up static middleware to serve the frontend files.
+- [x] **Calls to third party endpoints** - I  called a third party API to get random inspirational quotes. I found the API [here](https://github.com/mohamadayash22/real-inspire).
+- [x] **Backend service endpoints** - I used GET, POST, PATCH, and DELETE endpoints to manage habits.
+- [x] **Frontend calls service endpoints** - I used `fetch` in my React frontend to call my backend service endpoints.
+- [x] **Supports registration, login, logout, and restricted endpoint** - I added the same login and registration endpoints to my as Simon.
 
 
 ## 🚀 DB deliverable
