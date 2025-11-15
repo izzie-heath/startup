@@ -7,8 +7,7 @@ const app = express();
 const authCookieName = 'token';
 
 //temporary database placeholder
-let users = [];
-let habits = [];
+const db = require('./database.js');
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
