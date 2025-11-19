@@ -20,20 +20,28 @@ app.use('/api', apiRouter);
 
 //creates a new user
 apiRouter.post('/auth/create', async (req, res) => {
-    const existingUser = await db.getUser(req.body.email);
-    if (existingUser) {
-        return res.status(409).send({ msg: 'Existing user' });
+    try {
+        console.log('Creating user:', req.body.email);
+        const existingUser = await db.getUser(req.body.email);
+        if (existingUser) {
+            console.log('User already exists');
+            return res.status(409).send({ msg: 'Existing user' });
+        }
+        const passwordHash = await bcrypt.hash(req.body.password, 10);
+        const user = {
+            email: req.body.email,
+            password: passwordHash,
+            token: uuid.v4(),
+        };
+        console.log('Inserting user into database...');
+        await db.addUser(user);
+        console.log('User created successfully');
+        setAuthCookie(res, user.token);
+        res.send({ email: user.email });
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).send({ msg: 'Error creating user', error: error.message });
     }
-    const passwordHash = await bcrypt.hash(req.body.password, 10);
-    const user = {
-        email: req.body.email,
-        password: passwordHash,
-        token: uuid.v4(),
-    };
-    await db.addUser(user);
-    setAuthCookie(res, user.token);
-    res.send({ email: user.email });
-    await db.updateUser({ ...user });
 });
 
 
@@ -43,6 +51,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
         user.token = uuid.v4();
+        await db.updateUser(user);
         setAuthCookie(res, user.token);
         res.send({ email: user.email });
         return;
@@ -57,9 +66,9 @@ apiRouter.delete('/auth/logout', async (req, res) => {
     if (user) {
         delete user.token;
     }
+    await db.updateUser({ ...user, token: null });
     res.clearCookie(authCookieName);
     res.status(204).end();
-    await db.updateUser({ ...user, token:null });
 });
 
 //middleware to verify authentication to call an endpoint
@@ -74,20 +83,28 @@ const verifyAuth = async (req, res, next) => {
 };
 
 //gets all habits for user
-apiRouter.get('/habits', verifyAuth, async (_req, res) => {
+apiRouter.get('/habits', verifyAuth, async (req, res) => {
     const habits = await db.getHabits(req.user.email);
     res.send(habits);
 });
 
 //adds a new habit for user
 apiRouter.post('/habit', verifyAuth, async (req, res) => {
-    const habit = {
-        id: uuid.v4(),
-        email: req.user.email,
-        ...req.body,
-    };
-    const newHabit = await db.addHabit(habit);
-    res.send(newHabit);
+    try {
+        console.log('Creating habit for user:', req.user.email);
+        const habit = {
+            id: uuid.v4(),
+            email: req.user.email,
+            ...req.body,
+        };
+        console.log('Inserting habit:', habit);
+        const newHabit = await db.addHabit(habit);
+        console.log('Habit created successfully');
+        res.send(newHabit);
+    } catch (error) {
+        console.error('Error creating habit:', error);
+        res.status(500).send({ msg: 'Error creating habit', error: error.message });
+    }
 });
 
 //updates a habit
@@ -118,7 +135,7 @@ app.use((_req, res) => {
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: 'strict',
   });

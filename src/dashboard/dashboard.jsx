@@ -5,10 +5,7 @@ import React, { useState, useEffect } from 'react';
 export function Dashboard() {
     const username = localStorage.getItem('username') || 'Guest';
 
-    const [habits, setHabits] = useState(() => {
-        const saved = localStorage.getItem('habits');
-        return saved ? JSON.parse(saved) : [];
-    });
+    const [habits, setHabits] = useState([]);
 
     //this gets the current date and formats it into a month, day year format
     const currentDate = new Date();
@@ -21,6 +18,22 @@ export function Dashboard() {
     //API call to get a random inspirational quote
     const [quote, setQuote] = useState('');
     const [quoteAuthor, setQuoteAuthor] = useState('');
+
+    // Load habits from backend
+    useEffect(() => {
+        async function loadHabits() {
+            try {
+                const response = await fetch('/api/habits');
+                if (response.ok) {
+                    const data = await response.json();
+                    setHabits(data);
+                }
+            } catch (err) {
+                console.error('Failed to load habits:', err);
+            }
+        }
+        loadHabits();
+    }, []);
 
 useEffect(() => {
     async function fetchQuote() {
@@ -38,38 +51,57 @@ useEffect(() => {
 
 
     useEffect(() => {
-        localStorage.setItem('habits', JSON.stringify(habits));
-    }, [habits]);
-
-
-    useEffect(() => {
         const today = new Date().toDateString();
         const lastReset = localStorage.getItem('lastReset');
         if (lastReset !== today) {
+            // Reset all habits to not done
+            habits.forEach(habit => {
+                if (habit.done) {
+                    fetch(`/api/habit/${habit.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ done: false }),
+                    }).catch(err => console.error('Failed to reset habit:', err));
+                }
+            });
             setHabits(prev => prev.map(h => ({ ...h, done: false })));
             localStorage.setItem('lastReset', today);
         }
-    }, []);
+    }, [habits]);
 
 
     //functions for handling habits
-    function toggleHabit(id) {
+    async function toggleHabit(id) {
         const today = new Date().toDateString();
-        setHabits(habits.map(habit => {
-            if (habit.id !== id)
-                return habit;
-            if (!habit.done){
-                let newStreak = habit.streak ?? 0;
-                if (habit.lastCompleted === getYesterday()){
-                    newStreak += 1;
-                } else {
-                    newStreak = 1;
-                }
-                return { ...habit, done: true, streak: newStreak, lastCompleted: today }
+        const habit = habits.find(h => h.id === id);
+        if (!habit) return;
+
+        let updatedHabit;
+        if (!habit.done) {
+            let newStreak = habit.streak ?? 0;
+            if (habit.lastCompleted === getYesterday()) {
+                newStreak += 1;
             } else {
-                return { ...habit, done: false, lastCompleted: null };
+                newStreak = 1;
             }
-        }));
+            updatedHabit = { done: true, streak: newStreak, lastCompleted: today };
+        } else {
+            updatedHabit = { done: false, lastCompleted: null };
+        }
+
+        try {
+            const response = await fetch(`/api/habit/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedHabit),
+            });
+
+            if (response.ok) {
+                setHabits(habits.map(h => h.id === id ? { ...h, ...updatedHabit } : h));
+            }
+        } catch (err) {
+            console.error('Failed to update habit:', err);
+        }
     }
 
     function getYesterday() {
@@ -78,20 +110,43 @@ useEffect(() => {
         return d.toDateString();
     }
 
-    function addHabit() {
+    async function addHabit() {
         const text = prompt('Enter a new habit:');
-            if(!text) return;
-            setHabits([...habits, {
-                id: Date.now(),
-                text,
-                done: false,
-                streak: 0,
-                lastCompleted: null
-            }]);
+        if (!text) return;
+
+        try {
+            const response = await fetch('/api/habit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text,
+                    done: false,
+                    streak: 0,
+                    lastCompleted: null
+                }),
+            });
+
+            if (response.ok) {
+                const newHabit = await response.json();
+                setHabits([...habits, newHabit]);
+            }
+        } catch (err) {
+            console.error('Failed to add habit:', err);
+        }
     }
 
-    function deleteHabit(id) {
-        setHabits(habits.filter(habit => habit.id !== id));
+    async function deleteHabit(id) {
+        try {
+            const response = await fetch(`/api/habit/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                setHabits(habits.filter(habit => habit.id !== id));
+            }
+        } catch (err) {
+            console.error('Failed to delete habit:', err);
+        }
     }
 
     function confirmDelete(id) {

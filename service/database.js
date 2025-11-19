@@ -8,6 +8,7 @@ const habitCollection = db.collection('habits');
 
 (async function testConnection() {
   try {
+    await client.connect();
     await db.command({ ping: 1 });
     console.log('Successfully connected to database');
   } catch (ex) {
@@ -27,7 +28,8 @@ function getUserByToken(token) {
 }
 
 async function addUser(user) {
-  return userCollection.insertOne(user);
+  await userCollection.insertOne(user);
+  return user;
 }
 
 async function updateUser(user) {
@@ -40,7 +42,8 @@ function getHabits(email) {
 }
 
 async function addHabit(habit) {
-  return habitCollection.insertOne(habit);
+  await habitCollection.insertOne(habit);
+  return habit;
 }
 
 async function updateHabit(id, newFields) {

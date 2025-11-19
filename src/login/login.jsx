@@ -4,7 +4,35 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 export function Login() {
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  async function handleLogin() {
+    if (!username.trim() || !password.trim()) {
+      alert('Please enter both username and password');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: username.trim(), password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('username', data.email);
+        navigate('/dashboard');
+      } else {
+        const error = await response.json();
+        alert(error.msg || 'Login failed');
+      }
+    } catch (err) {
+      alert('Network error. Is the server running?');
+      console.error(err);
+    }
+  }
 
   return (
     <main className="login-main">
@@ -28,20 +56,12 @@ export function Login() {
               id="password"
               name="password"
               placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
 
-            <button
-              type="button"
-              onClick={() => {
-                if (!username.trim()) {
-                  alert('Please enter a username');
-                } else {
-                  localStorage.setItem('username', username.trim());
-                  navigate('/dashboard');
-                }
-              }}
-            >
+            <button type="button" onClick={handleLogin}>
               Login
             </button>
 
