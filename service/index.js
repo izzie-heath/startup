@@ -6,7 +6,7 @@ const app = express();
 
 const authCookieName = 'token';
 
-//temporary database placeholder
+//database
 const db = require('./database.js');
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -20,18 +20,26 @@ app.use('/api', apiRouter);
 
 //creates a new user
 apiRouter.post('/auth/create', async (req, res) => {
-    if (await findUser('email', req.body.email)) {
-        res.status(409).send({ msg: 'Existing user' });
-    } else {
-        const user = await createUser(req.body.email, req.body.password);
-        setAuthCookie(res, user.token);
-        res.send({ email: user.email });
+    const existingUser = await db.getUser(req.body.email);
+    if (existingUser) {
+        return res.status(409).send({ msg: 'Existing user' });
     }
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
+    const user = {
+        email: req.body.email,
+        password: passwordHash,
+        token: uuid.v4(),
+    };
+    await db.addUser(user);
+    setAuthCookie(res, user.token);
+    res.send({ email: user.email });
+    await db.updateUser({ ...user });
 });
+
 
 //logs in an existing user
 apiRouter.post('/auth/login', async (req, res) => {
-    const user = await findUser('email', req.body.email);
+    const user = await db.getUser(req.body.email);
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
         user.token = uuid.v4();
@@ -45,50 +53,52 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 //logs out a user
 apiRouter.delete('/auth/logout', async (req, res) => {
-    const user = await findUser('token', req.cookies[authCookieName]);
+    const user = await db.getUserByToken(req.cookies[authCookieName]);
     if (user) {
         delete user.token;
     }
     res.clearCookie(authCookieName);
     res.status(204).end();
+    await db.updateUser({ ...user, token:null });
 });
 
 //middleware to verify authentication to call an endpoint
 const verifyAuth = async (req, res, next) => {
-    const user = await findUser('token', req.cookies[authCookieName]);
-    if (user) {
-        next();
-    } else {
-        res.status(401).send({ msg: 'Unauthorized' });
-    }
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
+  if (!user) {
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
+  req.user = user;
+  next();
 };
 
 //gets all habits for user
-apiRouter.get('/habits', verifyAuth, (_req, res) => {
+apiRouter.get('/habits', verifyAuth, async (_req, res) => {
+    const habits = await db.getHabits(req.user.email);
     res.send(habits);
 });
 
 //adds a new habit for user
-apiRouter.post('/habit', verifyAuth, (req, res) => {
-    const newHabit = {id: uuid.v4(), ...req.body};
-    habits.push(newHabit);
-    res.status(201).send(newHabit);
+apiRouter.post('/habit', verifyAuth, async (req, res) => {
+    const habit = {
+        id: uuid.v4(),
+        email: req.user.email,
+        ...req.body,
+    };
+    const newHabit = await db.addHabit(habit);
+    res.send(newHabit);
 });
 
 //updates a habit
-apiRouter.patch('/habit/:id', verifyAuth, (req, res) => {
-    const idx = habits.findIndex((h) => h.id === req.params.id);
-    if (idx !== -1) {
-        habits[idx] = { ...habits[idx], ...req.body };
-        res.send(habits[idx]);
-    } else {
-        res.status(404).send({ msg: 'Habit not found' });
-    }
+apiRouter.patch('/habit/:id', verifyAuth, async (req, res) => {
+    const updatedHabit = await db.updateHabit(req.params.id, req.body);
+    res.send(updatedHabit);
 });
 
 //deletes a habit
-apiRouter.delete('/habit/:id', verifyAuth, (req, res) => {
-    habits = habits.filter((h) => h.id !== req.params.id);
+apiRouter.delete('/habit/:id', verifyAuth, async (req, res) => {
+    await db.deleteHabit(req.params.id);
     res.status(204).end();
 });
 
@@ -103,23 +113,6 @@ app.use((_req, res) => {
 });
 
 
-
-async function createUser(email, password) {
-  const passwordHash = await bcrypt.hash(password, 10);
-
-  const user = {
-    email: email,
-    password: passwordHash,
-    token: uuid.v4(),
-  };
-  users.push(user);
-  return user;
-}
-
-async function findUser(field, value) {
-  if (!value) return null;
-  return users.find((u) => u[field] === value);
-}
 
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {

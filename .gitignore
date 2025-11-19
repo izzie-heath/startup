@@ -1,3 +1,6 @@
-﻿testMongo/dbConfig.json
+﻿# Sensitive configuration files
+service/dbConfig.json
+testMongo/dbConfig.json
 
+# Dependencies
 node_modules/
