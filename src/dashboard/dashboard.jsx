@@ -23,7 +23,9 @@ export function Dashboard() {
     useEffect(() => {
         async function loadHabits() {
             try {
-                const response = await fetch('/api/habits');
+                const response = await fetch('/api/habits', {
+                    credentials: 'include',
+                });
                 if (response.ok) {
                     const data = await response.json();
                     setHabits(data);
@@ -61,6 +63,7 @@ useEffect(() => {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ done: false }),
+                        credentials: 'include',
                     }).catch(err => console.error('Failed to reset habit:', err));
                 }
             });
@@ -94,6 +97,7 @@ useEffect(() => {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedHabit),
+                credentials: 'include',
             });
 
             if (response.ok) {
@@ -124,6 +128,7 @@ useEffect(() => {
                     streak: 0,
                     lastCompleted: null
                 }),
+                credentials: 'include',
             });
 
             if (response.ok) {
@@ -139,6 +144,7 @@ useEffect(() => {
         try {
             const response = await fetch(`/api/habit/${id}`, {
                 method: 'DELETE',
+                credentials: 'include',
             });
 
             if (response.ok) {

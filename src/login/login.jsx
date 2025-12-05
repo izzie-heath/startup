@@ -18,6 +18,7 @@ export function Login() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: username.trim(), password }),
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -25,12 +26,23 @@ export function Login() {
         localStorage.setItem('username', data.email);
         navigate('/dashboard');
       } else {
-        const error = await response.json();
-        alert(error.msg || 'Login failed');
+        let errorMsg = 'Login failed';
+        try {
+          const error = await response.json();
+          errorMsg = error.msg || errorMsg;
+        } catch {
+          errorMsg = `Server error (${response.status})`;
+        }
+        alert(errorMsg);
       }
     } catch (err) {
-      alert('Network error. Is the server running?');
-      console.error(err);
+      console.error('Login error:', err);
+      console.error('Error details:', {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      });
+      alert(`Unable to connect to server: ${err.message}`);
     }
   }
 

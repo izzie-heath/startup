@@ -1,3 +1,6 @@
+const http = require('http');
+const { WebSocketServer } = require('ws');
+
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
@@ -107,10 +110,17 @@ apiRouter.post('/habit', verifyAuth, async (req, res) => {
     }
 });
 
-//updates a habit
+//updates a habit, now includes web socket
 apiRouter.patch('/habit/:id', verifyAuth, async (req, res) => {
     const updatedHabit = await db.updateHabit(req.params.id, req.body);
     res.send(updatedHabit);
+    try {
+        const habits = await db.getHabits(req.user.email);
+        const totalStreak = habits.reduce((sum, h) => sum + (h.streak || 0), 0);
+        broadcastStreakUpdate(req.user.email, totalStreak);
+    } catch (e) {
+        console.error('Error broadcasting streak update', e);
+    }
 });
 
 //deletes a habit
@@ -126,7 +136,12 @@ app.use(function (err, req, res, next) {
 
 //return the application's default page if the path is unknown
 app.use((_req, res) => {
-    res.sendFile('index.html', { root: 'public' });
+    const indexPath = require('path').join(__dirname, 'public', 'index.html');
+    if (require('fs').existsSync(indexPath)) {
+        res.sendFile('index.html', { root: 'public' });
+    } else {
+        res.status(404).send({ msg: 'Not found' });
+    }
 });
 
 
@@ -141,6 +156,24 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+//Web Socket
+const server = http.createServer(app);
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
+
+const wss = new WebSocketServer({ server, path: '/ws'  });
+
+function broadcastStreakUpdate(email, totalStreak) {
+    const message = JSON.stringify({
+        type: 'streakUpdate',
+        email,
+        totalStreak,
+    });
+
+    wss.clients.forEach((client) => {
+        if (client.readyState === client.OPEN) {
+        client.send(message);
+        }
+    });
+}
