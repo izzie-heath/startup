@@ -1,56 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './leaderboard.css';
 
 export function Leaderboard() {
-  //this is a placeholder for the leaderboard logic until I get the server set up, it takes your username and highest streak from localStorage
+  // Seed the leaderboard with the current user's best streak from localStorage
   const habits = JSON.parse(localStorage.getItem('habits')) || [];
-  const streak = habits.filter(habit => habit.streak).reduce((max, habit) => Math.max(max, habit.streak), 0);
+  const initialStreak = habits
+    .filter((habit) => typeof habit.streak === 'number')
+    .reduce((max, habit) => Math.max(max, habit.streak), 0);
+
+  const username = localStorage.getItem('username') || 'You';
+
+
+  const [leaders, setLeaders] = useState([
+    {
+      email: username,
+      displayName: username,
+      totalStreak: initialStreak,
+    },
+    //placeholder entries so the leaderboard isn't empty
+    { email: 'gucci@example.com', displayName: 'gucci', totalStreak: 13 },
+    { email: 'izzishek@example.com', displayName: 'izzishek', totalStreak: 8 },
+  ]);
+
+  useEffect(() => {
+    // Figure out ws or wss based on current page protocol
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+    socket.onopen = () => {
+      console.log('Leaderboard WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'streakUpdate') {
+          const { email, totalStreak } = msg;
+          setLeaders((prev) => {
+            const existing = prev.find((l) => l.email === email);
+            let next;
+            if (existing) {
+              next = prev.map((l) =>
+                l.email === email ? { ...l, totalStreak } : l
+              );
+            } else {
+              next = [
+                ...prev,
+                {
+                  email,
+                  displayName: email,
+                  totalStreak,
+                },
+              ];
+            }
+            next.sort((a, b) => b.totalStreak - a.totalStreak);
+            return next.slice(0, 10);
+          });
+        }
+      } catch (e) {
+        console.error('Bad WebSocket message', e);
+      }
+    };
+
+    socket.onclose = () => {
+      console.log('Leaderboard WebSocket disconnected');
+    };
+
+    socket.onerror = (err) => {
+      console.error('Leaderboard WebSocket error', err);
+    };
+
+    // Cleanup on unmount
+    return () => socket.close();
+  }, []);
 
   return (
     <main className="leaderboard-main">
-        <h2>Leaderboard</h2>
-        <table>
-            <tr>
-                <th>Rank</th>
-                <th>Username</th>
-                <th>Streak</th>
+      <h2>Leaderboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Streak</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaders.map((leader, index) => (
+            <tr key={leader.email + index}>
+              <td>{index + 1}</td>
+              <td>{leader.displayName}</td>
+              <td>{leader.totalStreak}</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>{localStorage.getItem('username')}</td>
-                <td>{streak}</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>gucci</td>
-                <td>13</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>izzishek</td>
-                <td>8</td>
-            </tr>
-            <tr>
-               <td>4</td>
-               <td>yourmom</td>
-               <td>5</td>
-            </tr>
-            <tr>
-               <td>5</td>
-               <td>geronimo</td>
-               <td>3</td>
-            </tr>
-            <tr>
-               <td>6</td>
-               <td>RunningOutOfUsernames1234</td>
-               <td>2</td>
-            </tr>
-            <tr>
-               <td>7</td>
-               <td>helloworld</td>
-               <td>1</td>
-            </tr>
-        </table>
+          ))}
+        </tbody>
+      </table>
     </main>
   );
 }

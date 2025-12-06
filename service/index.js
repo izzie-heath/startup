@@ -1,5 +1,5 @@
 const http = require('http');
-const { WebSocketServer } = require('ws');
+const WebSocket = require('ws');
 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -145,7 +145,6 @@ app.use((_req, res) => {
 });
 
 
-
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
@@ -162,7 +161,7 @@ server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-const wss = new WebSocketServer({ server, path: '/ws'  });
+const wss = new WebSocket.Server({ server, path: '/ws' });
 
 function broadcastStreakUpdate(email, totalStreak) {
     const message = JSON.stringify({
@@ -172,7 +171,7 @@ function broadcastStreakUpdate(email, totalStreak) {
     });
 
     wss.clients.forEach((client) => {
-        if (client.readyState === client.OPEN) {
+        if (client.readyState === WebSocket.OPEN) {
         client.send(message);
         }
     });
