@@ -138,8 +138,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - I set up a WebSocket server using the `ws` library in Node.js.
+- [x] **Frontend makes WebSocket connection** - I set up a WebSocket connection in my React frontend.
+- [x] **Data sent over WebSocket connection** - I send data over the WebSocket connection when a user completes a habit, updating their streak.
+- [x] **WebSocket data displayed** - I set up the frontend to display real-time updates received over the WebSocket connection.
+- [x] **Application is fully functional** - My application is fully functional with all required features working together.

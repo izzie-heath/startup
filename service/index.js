@@ -129,6 +129,20 @@ apiRouter.delete('/habit/:id', verifyAuth, async (req, res) => {
     res.status(204).end();
 });
 
+//get leaderboard data
+apiRouter.get('/leaderboard', async (req, res) => {
+    const users = await db.getAllUsers();
+    const habits = await db.getAllHabits();
+    const leaderboard = users.map(user => {
+    const userHabits = habits.filter(h => h.email === user.email);
+    const totalStreak = userHabits.reduce((sum, h) => sum + (h.streak || 0), 0);
+    return { email: user.email, totalStreak };
+    });
+    leaderboard.sort((a, b) => b.totalStreak - a.totalStreak);
+    res.send(leaderboard);
+});
+
+
 //error handler
 app.use(function (err, req, res, next) {
     res.status(500).send({ type: err.name, message: err.message });

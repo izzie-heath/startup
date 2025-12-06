@@ -36,6 +36,10 @@ async function updateUser(user) {
   return userCollection.updateOne({ email: user.email }, { $set: user });
 }
 
+function getAllUsers() {
+  return userCollection.find({}).toArray();
+}
+
 // HABITS
 function getHabits(email) {
   return habitCollection.find({ email }).toArray();
@@ -54,15 +58,21 @@ async function deleteHabit(id) {
   return habitCollection.deleteOne({ id });
 }
 
+function getAllHabits() {
+  return habitCollection.find({}).toArray();
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   addUser,
   updateUser,
+  getAllUsers,
   getHabits,
   addHabit,
   updateHabit,
   deleteHabit,
+  getAllHabits,
 };
 
 

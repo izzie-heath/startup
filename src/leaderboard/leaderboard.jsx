@@ -10,7 +10,6 @@ export function Leaderboard() {
 
   const username = localStorage.getItem('username') || 'You';
 
-
   const [leaders, setLeaders] = useState([
     {
       email: username,
@@ -22,6 +21,27 @@ export function Leaderboard() {
     { email: 'izzishek@example.com', displayName: 'izzishek', totalStreak: 8 },
   ]);
 
+  // Load initial leaderboard data from backend
+  useEffect(() => {
+    async function loadLeaderboard() {
+      try {
+        const res = await fetch('/api/leaderboard', { credentials: 'include' });
+        if (res.ok) {
+          const data = await res.json();
+          setLeaders(data.map(entry => ({
+            email: entry.email,
+            displayName: entry.email.split('@')[0],
+            totalStreak: entry.totalStreak
+          })));
+        }
+      } catch (err) {
+        console.error('Failed to load leaderboard:', err);
+      }
+    }
+    loadLeaderboard();
+  }, []);
+
+  // WebSocket for real-time updates
   useEffect(() => {
     // Figure out ws or wss based on current page protocol
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
